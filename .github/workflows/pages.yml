@@ -1,0 +1,45 @@
+name: Publikacja podglądu DBTV
+
+on:
+  push:
+    branches: [main, master, work]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobierz repozytorium
+        uses: actions/checkout@v4
+      - name: Sprawdź token konfiguracji Pages
+        env:
+          PAGES_TOKEN: ${{ secrets.PAGES_TOKEN }}
+        run: |
+          if [ -z "$PAGES_TOKEN" ]; then
+            echo "::error::Dodaj sekret repozytorium PAGES_TOKEN zgodnie z instrukcją w README."
+            exit 1
+          fi
+      - name: Skonfiguruj GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+          token: ${{ secrets.PAGES_TOKEN }}
+      - name: Przygotuj pliki strony
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: src
+      - name: Opublikuj stronę
+        id: deployment
+        uses: actions/deploy-pages@v4
