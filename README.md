@@ -19,13 +19,10 @@ Projekt publikuje katalog `src/` automatycznie przez GitHub Pages. Całą operac
 można wykonać w aplikacji GitHub lub w przeglądarce na telefonie:
 
 1. Otwórz repozytorium i zaakceptuj/połącz zmiany z pull requesta.
-2. Utwórz token dostępu GitHub z uprawnieniami zapisu do administracji
-   repozytorium i GitHub Pages. W klasycznym tokenie wymagany jest zakres `repo`;
-   w fine-grained tokenie wybierz to repozytorium oraz uprawnienia
-   **Administration: Read and write** i **Pages: Read and write**.
-3. W repozytorium przejdź do **Settings → Secrets and variables → Actions**, użyj
-   **New repository secret**, nazwij sekret dokładnie `PAGES_TOKEN` i wklej token.
-   Workflow używa go wyłącznie do jednorazowego włączenia lub konfiguracji Pages.
+2. Wejdź w **Settings → Pages**.
+3. W sekcji **Build and deployment → Source** wybierz **GitHub Actions**. W tym
+   repozytorium Pages jest już włączone, więc nie dodawaj osobnego tokenu ani
+   sekretu `PAGES_TOKEN`.
 4. Otwórz kartę **Actions**, wybierz workflow **Publikacja podglądu DBTV** i
    naciśnij **Run workflow**. Po połączeniu zmian workflow uruchamia się też
    automatycznie.
@@ -46,20 +43,15 @@ gotowy link.
 #### Naprawa błędu `Get Pages site failed` / `Not Found`
 
 Ten komunikat oznacza, że GitHub Pages nie było jeszcze włączone dla
-repozytorium. Aktualny workflow używa `enablement: true`, więc potrafi włączyć je
-automatycznie, ale akcja GitHub nie zezwala na tę operację przy użyciu zwykłego
-`GITHUB_TOKEN`. Sprawdź, czy:
+repozytorium. Wejdź w **Settings → Pages**, jako źródło wybierz **GitHub Actions**,
+a następnie uruchom workflow ponownie przez **Re-run all jobs** albo **Run
+workflow**. Po włączeniu Pages publikacja używa wyłącznie ograniczonego czasowo
+`GITHUB_TOKEN`, któremu workflow nadaje minimalne uprawnienia `contents: read`,
+`pages: write` i `id-token: write`.
 
-1. sekret nazywa się dokładnie `PAGES_TOKEN` (wielkimi literami);
-2. token nie wygasł i ma dostęp do tego repozytorium;
-3. token ma uprawnienia zapisu do **Administration** i **Pages**;
-4. po dodaniu sekretu workflow został uruchomiony ponownie przez **Re-run all
-   jobs** albo **Run workflow**.
-
-Po pierwszym poprawnym uruchomieniu strona Pages jest już skonfigurowana, ale
-sekret nadal jest potrzebny przy kolejnych wykonaniach obecnego workflow. Nie
-wklejaj wartości tokenu do pliku, komentarza, issue ani logów — wyłącznie do
-ustawień sekretów repozytorium.
+Jeśli wcześniej utworzyłeś `PAGES_TOKEN` według starszej instrukcji, usuń sekret
+z **Settings → Secrets and variables → Actions**, a sam token unieważnij w
+ustawieniach konta. Nie jest już potrzebny i nie powinien pozostawać aktywny.
 
 ### Z komputerem — lokalna sieć Wi-Fi
 
