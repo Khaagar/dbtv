@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/serve.mjs",
+    "import:episodes": "node scripts/import-episodes.mjs",
     "lint": "node --check scripts/*.mjs && node --check src/*.js && node scripts/lint.mjs",
     "build": "node scripts/build.mjs"
   }

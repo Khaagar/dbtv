@@ -1,4 +1,4 @@
-import { episodesFor, loadWikipediaEpisodes, series } from "./episodes.js";
+import { episodesFor, loadLocalEpisodes, series } from "./episodes.js";
 
 const tabs = document.querySelector("#series-tabs");
 const grid = document.querySelector("#episode-grid");
@@ -64,12 +64,13 @@ document.querySelector("[data-open-feature]").addEventListener("click", () => {
 renderTabs();
 renderEpisodes();
 
-loadWikipediaEpisodes()
-  .then((loaded) => {
-    sourceStatus.textContent = `Załadowano ${loaded} tytułów z Wikipedii`;
+loadLocalEpisodes()
+  .then(({ count: loaded, importedAt }) => {
+    const date = importedAt ? new Date(importedAt).toLocaleDateString("pl") : "wersja startowa";
+    sourceStatus.textContent = `Lokalna baza: ${loaded} odcinków · ${date}`;
     renderEpisodes();
   })
   .catch(() => {
-    sourceStatus.textContent = "Wikipedia jest chwilowo niedostępna — wyświetlam numerację odcinków";
+    sourceStatus.textContent = "Nie udało się odczytać lokalnej bazy — wyświetlam numerację odcinków";
     sourceStatus.classList.add("warning");
   });

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#080d21">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; font-src https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com; img-src 'self' data:">
     <title>DBTV — Twoje uniwersum</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +53,7 @@
           <label class="search"><span>⌕</span><input type="search" id="search" placeholder="Szukaj odcinka…" aria-label="Szukaj odcinka"></label>
         </div>
         <div class="series-tabs" id="series-tabs" role="tablist" aria-label="Serie Dragon Ball"></div>
-        <div class="episode-summary"><div><p id="episode-count"></p><small id="source-status">Pobieram polskie tytuły z Wikipedii…</small></div><button id="layout-toggle" aria-label="Zmień układ">▦</button></div>
+        <div class="episode-summary"><div><p id="episode-count"></p><small id="source-status">Wczytuję lokalną bazę odcinków…</small></div><button id="layout-toggle" aria-label="Zmień układ">▦</button></div>
         <div class="episode-grid" id="episode-grid"></div>
         <button class="button load-more" id="load-more">Pokaż więcej odcinków <span>↓</span></button>
       </section>

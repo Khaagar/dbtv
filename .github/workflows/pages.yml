@@ -25,6 +25,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Skonfiguruj GitHub Pages
         uses: actions/configure-pages@v5
+      - name: Pobierz bazę odcinków z Wikipedii
+        run: node scripts/import-episodes.mjs
       - name: Przygotuj pliki strony
         uses: actions/upload-pages-artifact@v3
         with:

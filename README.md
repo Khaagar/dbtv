@@ -5,11 +5,12 @@ wersja zawiera interaktywny katalog czterech serii, wyszukiwarkę, przełączani
 widoku, okno podglądu z placeholderem wideo i glassmorphism inspirowany kolorami
 uniwersum.
 
-Po otwarciu strony klient pobiera polskie tytuły 153 odcinków oryginalnego
-`Dragon Ball` z publicznego API Wikipedii i pokazuje status importu nad katalogiem.
-Źródłem jest [Lista odcinków serialu anime Dragon Ball](https://pl.wikipedia.org/wiki/Lista_odcink%C3%B3w_serialu_anime_Dragon_Ball),
-a pozycje są oznaczone jako dane CC BY-SA. Gdy API jest niedostępne, interfejs
-pozostaje użyteczny i wyświetla bezpieczny fallback `Odcinek 1…153`.
+Aplikacja czyta 153 odcinki oryginalnego `Dragon Ball` wyłącznie z lokalnego
+pliku `src/data/dragon-ball.json`. Przeglądarka użytkownika nie łączy się z
+Wikipedią. Baza jest generowana przed publikacją przez `npm run import:episodes`
+na podstawie [listy odcinków serialu anime Dragon Ball](https://pl.wikipedia.org/wiki/Lista_odcink%C3%B3w_serialu_anime_Dragon_Ball)
+i zawiera wszystkie kolumny rozpoznane w tabelach źródłowych wraz z atrybucją
+CC BY-SA. Workflow GitHub Pages odświeża ją przed każdym wdrożeniem.
 
 ## Podgląd na telefonie
 

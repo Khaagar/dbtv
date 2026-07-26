@@ -18,6 +18,11 @@ for (const file of files) {
   }
 }
 
+const database = JSON.parse(await readFile("src/data/dragon-ball.json", "utf8"));
+if (database.episodes?.length !== 153) {
+  errors.push("src/data/dragon-ball.json: expected exactly 153 episodes");
+}
+
 if (errors.length > 0) {
   console.error(errors.join("\n"));
   process.exitCode = 1;
