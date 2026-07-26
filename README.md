@@ -5,6 +5,12 @@ wersja zawiera interaktywny katalog czterech serii, wyszukiwarkę, przełączani
 widoku, okno podglądu z placeholderem wideo i glassmorphism inspirowany kolorami
 uniwersum.
 
+Po otwarciu strony klient pobiera polskie tytuły 153 odcinków oryginalnego
+`Dragon Ball` z publicznego API Wikipedii i pokazuje status importu nad katalogiem.
+Źródłem jest [Lista odcinków serialu anime Dragon Ball](https://pl.wikipedia.org/wiki/Lista_odcink%C3%B3w_serialu_anime_Dragon_Ball),
+a pozycje są oznaczone jako dane CC BY-SA. Gdy API jest niedostępne, interfejs
+pozostaje użyteczny i wyświetla bezpieczny fallback `Odcinek 1…153`.
+
 ## Podgląd na telefonie
 
 ### Bez komputera — GitHub Pages
@@ -14,7 +20,9 @@ można wykonać w aplikacji GitHub lub w przeglądarce na telefonie:
 
 1. Otwórz repozytorium i zaakceptuj/połącz zmiany z pull requesta.
 2. Wejdź w **Settings → Pages**.
-3. W sekcji **Build and deployment → Source** wybierz **GitHub Actions**.
+3. W sekcji **Build and deployment → Source** wybierz **GitHub Actions**. W tym
+   repozytorium Pages jest już włączone, więc nie dodawaj osobnego tokenu ani
+   sekretu `PAGES_TOKEN`.
 4. Otwórz kartę **Actions**, wybierz workflow **Publikacja podglądu DBTV** i
    naciśnij **Run workflow**. Po połączeniu zmian workflow uruchamia się też
    automatycznie.
@@ -22,7 +30,7 @@ można wykonać w aplikacji GitHub lub w przeglądarce na telefonie:
    widocznego w sekcji **deployments**. Typowy adres ma postać
    `https://NAZWA-UZYTKOWNIKA.github.io/NAZWA-REPOZYTORIUM/`.
 
-Pierwsza publikacja może wymagać uprawnień administratora repozytorium. Sam link
+Pierwsza publikacja wymaga uprawnień administratora repozytorium. Sam link
 działa potem na telefonie bez uruchamiania terminala i bez pozostawiania żadnego
 komputera włączonego. Workflow publikuje wyłącznie statyczny szablon z `src/` —
 nie publikuje tokenów ani danych logowania.
@@ -31,6 +39,19 @@ Jeśli w aplikacji GitHub nie widać ustawień Pages, otwórz GitHub w przegląd
 włącz opcję **Witryna na komputer** i wykonaj powyższe kroki. Alternatywnie osoba
 z uprawnieniami administratora może włączyć Pages jeden raz, a Tobie wysłać już
 gotowy link.
+
+#### Naprawa błędu `Get Pages site failed` / `Not Found`
+
+Ten komunikat oznacza, że GitHub Pages nie było jeszcze włączone dla
+repozytorium. Wejdź w **Settings → Pages**, jako źródło wybierz **GitHub Actions**,
+a następnie uruchom workflow ponownie przez **Re-run all jobs** albo **Run
+workflow**. Po włączeniu Pages publikacja używa wyłącznie ograniczonego czasowo
+`GITHUB_TOKEN`, któremu workflow nadaje minimalne uprawnienia `contents: read`,
+`pages: write` i `id-token: write`.
+
+Jeśli wcześniej utworzyłeś `PAGES_TOKEN` według starszej instrukcji, usuń sekret
+z **Settings → Secrets and variables → Actions**, a sam token unieważnij w
+ustawieniach konta. Nie jest już potrzebny i nie powinien pozostawać aktywny.
 
 ### Z komputerem — lokalna sieć Wi-Fi
 

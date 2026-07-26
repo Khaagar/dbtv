@@ -1,4 +1,4 @@
-import { episodesFor, series } from "./episodes.js";
+import { episodesFor, loadWikipediaEpisodes, series } from "./episodes.js";
 
 const tabs = document.querySelector("#series-tabs");
 const grid = document.querySelector("#episode-grid");
@@ -7,11 +7,16 @@ const search = document.querySelector("#search");
 const loadMore = document.querySelector("#load-more");
 const dialog = document.querySelector("#preview-dialog");
 const toast = document.querySelector(".toast");
+const sourceStatus = document.querySelector("#source-status");
 let activeSeries = series[0];
 let visible = 12;
 
 function renderTabs() {
   tabs.innerHTML = series.map((show) => `<button class="series-tab ${show.id === activeSeries.id ? "active" : ""}" style="--accent:${show.accent}" role="tab" aria-selected="${show.id === activeSeries.id}" data-series="${show.id}">${show.name} <small>${show.count}</small></button>`).join("");
+}
+
+function escapeHtml(value) {
+  return value.replace(/[&<>"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[character]);
 }
 
 function renderEpisodes() {
@@ -21,7 +26,7 @@ function renderEpisodes() {
   grid.innerHTML = episodes.slice(0, visible).map((episode) => `
     <button class="episode-card" style="--accent:${activeSeries.accent}" data-episode="${episode.number}">
       <span class="thumbnail"><span class="episode-number">${String(episode.number).padStart(2, "0")}</span><span class="play">▶</span></span>
-      <span class="card-copy"><small>${episode.arc}</small><h3>${episode.title}</h3><p>${activeSeries.name} · ${episode.duration}</p></span>
+      <span class="card-copy"><small>${escapeHtml(episode.arc)}</small><h3>${escapeHtml(episode.title)}</h3><p>${activeSeries.name} · ${episode.duration}</p></span>
     </button>`).join("");
   loadMore.hidden = visible >= episodes.length;
 }
@@ -58,3 +63,13 @@ document.querySelector("[data-open-feature]").addEventListener("click", () => {
 
 renderTabs();
 renderEpisodes();
+
+loadWikipediaEpisodes()
+  .then((loaded) => {
+    sourceStatus.textContent = `Załadowano ${loaded} tytułów z Wikipedii`;
+    renderEpisodes();
+  })
+  .catch(() => {
+    sourceStatus.textContent = "Wikipedia jest chwilowo niedostępna — wyświetlam numerację odcinków";
+    sourceStatus.classList.add("warning");
+  });
