@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#080d21">
+    <title>DBTV — Twoje uniwersum</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="aura aura-one"></div>
+    <div class="aura aura-two"></div>
+    <header class="topbar glass">
+      <a class="brand" href="#top" aria-label="DBTV — strona główna"><span>DB</span>TV<i></i></a>
+      <nav aria-label="Główna nawigacja">
+        <a class="active" href="#top">Start</a>
+        <a href="#episodes">Odcinki</a>
+        <a href="#library">Moja lista</a>
+      </nav>
+      <button class="profile" aria-label="Otwórz profil">K</button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow"><i></i> Twoje uniwersum. Jeden ekran.</span>
+          <h1>Każda saga.<br><em>Jedna przygoda.</em></h1>
+          <p>Wszystkie serie i odcinki w miejscu stworzonym z myślą o dużym ekranie — i Twoim telefonie.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#episodes"><span>▶</span> Zacznij oglądać</a>
+            <button class="button secondary" data-open-feature>＋ Moja lista</button>
+          </div>
+          <dl class="stats glass">
+            <div><dt>639</dt><dd>odcinków</dd></div>
+            <div><dt>4</dt><dd>serie</dd></div>
+            <div><dt>∞</dt><dd>emocji</dd></div>
+          </dl>
+        </div>
+        <div class="hero-art" aria-label="Dekoracyjna kula energii">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="dragon-ball"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <div class="power-card glass"><i>▶</i><span><b>Następny odcinek</b><small>Dragon Ball · Odcinek 1</small></span></div>
+        </div>
+      </section>
+
+      <section class="content" id="episodes">
+        <div class="section-heading">
+          <div><span class="eyebrow">BIBLIOTEKA</span><h2>Wybierz swoją sagę</h2></div>
+          <label class="search"><span>⌕</span><input type="search" id="search" placeholder="Szukaj odcinka…" aria-label="Szukaj odcinka"></label>
+        </div>
+        <div class="series-tabs" id="series-tabs" role="tablist" aria-label="Serie Dragon Ball"></div>
+        <div class="episode-summary"><p id="episode-count"></p><button id="layout-toggle" aria-label="Zmień układ">▦</button></div>
+        <div class="episode-grid" id="episode-grid"></div>
+        <button class="button load-more" id="load-more">Pokaż więcej odcinków <span>↓</span></button>
+      </section>
+    </main>
+
+    <footer id="library"><a class="brand" href="#top"><span>DB</span>TV<i></i></a><p>Fanowski szablon interfejsu · bez materiałów wideo</p><a href="https://strefadb.pl" rel="noreferrer">Lista: StrefaDB ↗</a></footer>
+
+    <dialog id="preview-dialog">
+      <button class="close" aria-label="Zamknij">×</button>
+      <div class="video-placeholder"><div class="energy-play">▶</div><span>PLACEHOLDER WIDEO</span></div>
+      <div class="dialog-copy"><span class="eyebrow" id="modal-series"></span><h2 id="modal-title"></h2><p id="modal-meta"></p></div>
+    </dialog>
+    <div class="toast" role="status" aria-live="polite">Dodano do Twojej listy ✓</div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

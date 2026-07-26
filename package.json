@@ -1,0 +1,11 @@
+{
+  "name": "dbtv",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "lint": "node --check scripts/*.mjs && node --check src/*.js && node scripts/lint.mjs",
+    "build": "node scripts/build.mjs"
+  }
+}
